@@ -19,12 +19,12 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
-
+<link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
   <meta name="description" content="人总是四处逃匿，却无法回避自己">
 <meta property="og:type" content="website">
-<meta property="og:title" content="不易道">
+<meta property="og:title" content="不易">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="不易道">
+<meta property="og:site_name" content="不易">
 <meta property="og:description" content="人总是四处逃匿，却无法回避自己">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="不易">
@@ -43,7 +43,7 @@
   };
 </script>
 
-  <title>不易道</title>
+  <title>不易</title>
   
 
 
@@ -94,9 +94,10 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">不易道</h1>
+      <h1 class="site-title">不易</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">生来不易，不易道</p>
   </div>
 
   <div class="site-nav-right">
@@ -113,6 +114,16 @@
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -150,13 +161,13 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/19/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/photo/tx.png">
       <meta itemprop="name" content="不易">
       <meta itemprop="description" content="人总是四处逃匿，却无法回避自己">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不易道">
+      <meta itemprop="name" content="不易">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -271,6 +282,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="不易"
+      src="/photo/tx.png">
   <p class="site-author-name" itemprop="name">不易</p>
   <div class="site-description" itemprop="description">人总是四处逃匿，却无法回避自己</div>
 </div>
@@ -304,6 +317,8 @@
 
         
 
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 <div class="copyright">
   
   &copy; 
@@ -313,8 +328,15 @@
   </span>
   <span class="author" itemprop="copyrightHolder">不易</span>
 </div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<!--
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
+  </div>-->
 
         
 
