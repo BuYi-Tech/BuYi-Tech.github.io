@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+<link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  <meta name="description" content="在学习操作系统的时候遇到的几个函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线程函数小记">
+<meta property="og:url" content="http://example.com/2022/05/25/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/index.html">
+<meta property="og:site_name" content="不易家">
+<meta property="og:description" content="在学习操作系统的时候遇到的几个函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-25T04:45:36.529Z">
+<meta property="article:modified_time" content="2022-05-25T06:33:55.213Z">
+<meta property="article:author" content="不易">
+<meta property="article:tag" content="线程">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/05/25/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>线程函数小记 | 不易家</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">不易家</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">大智若愚，立贤无方</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/25/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/photo/tx.png">
+      <meta itemprop="name" content="不易">
+      <meta itemprop="description" content="人总是四处逃匿，却无法回避自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不易家">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线程函数小记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-25 12:45:36 / 修改时间：14:33:55" itemprop="dateCreated datePublished" datetime="2022-05-25T12:45:36+08:00">2022-05-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/05/25/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="线程函数小记" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/05/25/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/25/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">在学习操作系统的时候遇到的几个函数</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>emmm在做一个作业的时候，老师要求自学线程这方面函数，于是乎浅浅先总结一下我遇到的三个</p>
+<h1 id="CreateThread函数"><a href="#CreateThread函数" class="headerlink" title="CreateThread函数"></a>CreateThread函数</h1><p>CreateThread是一种微软在Windows API中提供了建立新的线程的函数，该函数在主线程的基础上创建一个新线程。</p>
+<h2 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HANDLE CreateThread(</span><br><span class="line">  LPSECURITY_ATTRIBUTES   lpThreadAttributes,</span><br><span class="line">  SIZE_T                  dwStackSize,</span><br><span class="line">  LPTHREAD_START_ROUTINE  lpStartAddress,</span><br><span class="line">  __drv_aliasesMem LPVOID lpParameter,</span><br><span class="line">  DWORD                   dwCreationFlags,</span><br><span class="line">  LPDWORD                 lpThreadId</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h3><ul>
+<li><strong>lpThreadAttributes</strong></li>
+</ul>
+<p>指向SECURITY_ATTRIBUTES 结构的指针，该结构确定子进程是否可以继承返回的句柄。如果 lpThreadAttributes为NULL，则无法继承句柄。</p>
+<p>结构的lpSecurityDescriptor成员为新线程指定安全描述符。如果lpThreadAttributes为NULL，则线程获取默认安全描述符。线程的默认安全描述符中的ACL来自创建者的主要标志。</p>
+<ul>
+<li><strong>dwStackSize</strong></li>
+</ul>
+<p>堆栈的初始大小，以字节为单位。系统将此值四舍五入到最近的页面。如果此参数为零，则新线程使用可执行文件的默认大小。</p>
+<ul>
+<li><strong>lpStartAddress</strong></li>
+</ul>
+<p>表示新线程所执行的线程函数地址，多个线程可以使用同一个函数地址。</p>
+<ul>
+<li><strong>lpParameter</strong></li>
+</ul>
+<p>是传给线程函数的参数。</p>
+<ul>
+<li><strong>dwCreationFlags</strong></li>
+</ul>
+<p>控制线程创建的标志。</p>
+<table>
+<thead>
+<tr>
+<th align="center">值</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">该线程在创建后立即运行</td>
+</tr>
+<tr>
+<td align="center">CREATE_SUSPENDED</td>
+<td align="center">线程是在挂起状态下创建的，并且在<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/ffc4e474-635b-4bf7-a68f-073899fb3fde">调用ResumeThread</a>函数之前不会运行</td>
+</tr>
+<tr>
+<td align="center">TACK_SIZE_PARAM_IS_A_RESERVATION</td>
+<td align="center">所述dwStackSize参数指定堆栈的初始保留大小。如果未指定此标志，则dwStackSize指定提交大小</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>lpThreadId</strong></li>
+</ul>
+<p>将返回线程的ID号，传入NULL表示不需要返回该线程ID号。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>线程创建成功返回新线程的句柄，失败返回NULL。</p>
+<h1 id="closehandle函数"><a href="#closehandle函数" class="headerlink" title="closehandle函数"></a>closehandle函数</h1><p>关闭线程句柄对象函数。</p>
+<h2 id="线程与线程句柄"><a href="#线程与线程句柄" class="headerlink" title="线程与线程句柄"></a>线程与线程句柄</h2><p>1.线程和线程句柄（Handle）不是一个东西，线程是CPU上跑起来的一段程序，线程句柄是一个内核对象。我们可以通过句柄来操作线程，但是线程的生命周期和线程句柄的生命周期不一样的。线程的生命周期就是线程函数从开始执行到结束，线程句柄的生命周期是从CreateThread返回到你CloseHandle()。</p>
+<p>2.所有的内核对象（包括线程Handle）都是系统资源，申请用完之后要释放返还的，也就是说用完后一定要closehandle关闭线程句柄，如果不这么做，会造成句柄泄露，系统的句柄资源很快就用光了。</p>
+<p>3.如果CreateThread以后需要对这个线程做一些操作，比如改变优先级，被其他线程等待，强制TermateThread等，就要保存这个句柄，使用完了在CloseHandle。</p>
+<p>如果你开了一个线程，而不需要对它进行如何干预，CreateThread后直接CloseHandle就行了。</p>
+<h2 id="函数原型-1"><a href="#函数原型-1" class="headerlink" title="函数原型"></a>函数原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BOOL CloseHandle(HANDLE hObject);</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数介绍-1"><a href="#参数介绍-1" class="headerlink" title="参数介绍"></a>参数介绍</h3><ul>
+<li><strong>hObject</strong></li>
+</ul>
+<p>代表一个已打开对象的handle。</p>
+<h2 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h2><p>TRUE：执行成功；</p>
+<p>FALSE：执行失败，可以调用GetLastError()获知失败原因。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>该函数是关闭了一个线程句柄对象，表示我不再使用该句柄，即不对这个句柄对应的线程做任何干预了，并没有结束该线程。该线程照常运行，直到满足条件结束。</p>
+<h1 id="WaitForMultipleObjects函数"><a href="#WaitForMultipleObjects函数" class="headerlink" title="WaitForMultipleObjects函数"></a>WaitForMultipleObjects函数</h1><p><strong>WaitForMultipleObjects</strong>是Windows中的一个功能非常强大的函数，几乎可以等待Windows中的所有的内核对象。</p>
+<h2 id="函数原型-2"><a href="#函数原型-2" class="headerlink" title="函数原型"></a>函数原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DWORD WaitForMultipleObjects(</span><br><span class="line"></span><br><span class="line">DWORD nCount, // number of handles in the handle array</span><br><span class="line"></span><br><span class="line">CONST HANDLE *lpHandles, // pointer to the object-handle array</span><br><span class="line"></span><br><span class="line">BOOL fWaitAll, // wait flag</span><br><span class="line"></span><br><span class="line">DWORD dwMilliseconds // time-out interval in milliseconds</span><br><span class="line"></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数介绍-2"><a href="#参数介绍-2" class="headerlink" title="参数介绍"></a>参数介绍</h3><p><strong>DWORD 就是 Double Word， 每个word为2个字节的长度，DWORD双字即为4个字节，每个字节是8位</strong></p>
+<ul>
+<li>**nCount **</li>
+</ul>
+<p>指定列表中的句柄数量 最大值为MAXIMUM_WAIT_OBJECTS</p>
+<ul>
+<li>*<strong>lpHandles</strong></li>
+</ul>
+<p>句柄数组的指针。lpHandles为指定对象句柄组合中的第一个元素 HANDLE类型可以为（Event，Mutex，Process，Thread，Semaphore）数组。</p>
+<ul>
+<li><strong>fWaitAll</strong></li>
+</ul>
+<p>等待的类型，如果为TRUE，表示除非对象都发出信号，否则就一直等待下去；如果FALSE，表示任何对象发出信号即可。</p>
+<ul>
+<li><strong>dwMilliseconds</strong></li>
+</ul>
+<p>指定要等候的毫秒数。如设为零，表示立即返回。如指定常数INFINITE，则可根据实际情况无限等待下去，或者设为指定时间。</p>
+<h2 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h2><p>WAIT_ABANDONED_0：所有对象都发出消息，而且其中有一个或多个属于互斥体（一旦拥有它们的进程中止，就会发出信号）；<br>WAIT_TIMEOUT：对象保持未发信号的状态，但规定的等待超时时间已经超过；<br>WAIT_OBJECT_0：所有对象都发出信号；<br>WAIT_IO_COMPLETION：（仅适用于WaitForMultipleObjectsEx）由于一个I&#x2F;O完成操作已作好准备执行，所以造成了函数的返回；<br>如果返回WAIT_FAILED则表示函数执行失败，会设置GetLastError；</p>
+<p>如果设定参数bWaitAll为FALSE，那么返回结果相似，只是可能还会返回相对于WAIT_ABANDONED_0或WAIT_OBJECT_0的一个正偏移量，指出哪个对象是被抛弃还是发出信号。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>感谢老板 离买房更近一步.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/photo/wechatpay.png" alt="不易 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/photo/alipay.png" alt="不易 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/22/%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%99%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="建站（二）">
+      <i class="fa fa-chevron-left"></i> 建站（二）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CreateThread%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">CreateThread函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">参数介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.2.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#closehandle%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">closehandle函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E5%8F%A5%E6%9F%84"><span class="nav-number">2.1.</span> <span class="nav-text">线程与线程句柄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-1"><span class="nav-number">2.2.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">参数介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-1"><span class="nav-number">2.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WaitForMultipleObjects%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">WaitForMultipleObjects函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-2"><span class="nav-number">3.1.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D-2"><span class="nav-number">3.1.1.</span> <span class="nav-text">参数介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-2"><span class="nav-number">3.2.</span> <span class="nav-text">返回值</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="不易"
+      src="/photo/tx.png">
+  <p class="site-author-name" itemprop="name">不易</p>
+  <div class="site-description" itemprop="description">人总是四处逃匿，却无法回避自己</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">不易</span>
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'WsEE2ScJIkazO3wbnGRjcHSD-gzGzoHsz',
+      appKey     : 'zkmWyak9qtxEFtfXCNRn7xhA',
+      placeholder: "在这里可以给我留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
