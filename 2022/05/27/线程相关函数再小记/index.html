@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
-  <meta name="description" content="21日，今天经历了好多。值得记下来">
+  <meta name="description" content="在学习操作系统的时候又遇到的几个函数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="22年5.21随笔">
-<meta property="og:url" content="http://example.com/2022/05/21/2022.5.21%E6%97%A5%E8%AE%B0/index.html">
+<meta property="og:title" content="线程函数再小记">
+<meta property="og:url" content="http://example.com/2022/05/27/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%86%8D%E5%B0%8F%E8%AE%B0/index.html">
 <meta property="og:site_name" content="不易家">
-<meta property="og:description" content="21日，今天经历了好多。值得记下来">
+<meta property="og:description" content="在学习操作系统的时候又遇到的几个函数">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-21T14:44:11.487Z">
-<meta property="article:modified_time" content="2022-05-21T15:11:13.866Z">
+<meta property="article:published_time" content="2022-05-27T13:32:41.427Z">
+<meta property="article:modified_time" content="2022-05-27T13:55:36.228Z">
 <meta property="article:author" content="不易">
-<meta property="article:tag" content="不易的日常">
+<meta property="article:tag" content="线程">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/05/21/2022.5.21%E6%97%A5%E8%AE%B0/">
+<link rel="canonical" href="http://example.com/2022/05/27/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%86%8D%E5%B0%8F%E8%AE%B0/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>22年5.21随笔 | 不易家</title>
+  <title>线程函数再小记 | 不易家</title>
   
 
 
@@ -167,7 +167,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/21/2022.5.21%E6%97%A5%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/27/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%86%8D%E5%B0%8F%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/photo/tx.png">
@@ -180,7 +180,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          22年5.21随笔
+          线程函数再小记
         </h1>
 
         <div class="post-meta">
@@ -191,7 +191,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-05-21 22:44:11 / 修改时间：23:11:13" itemprop="dateCreated datePublished" datetime="2022-05-21T22:44:11+08:00">2022-05-21</time>
+              <time title="创建时间：2022-05-27 21:32:41 / 修改时间：21:55:36" itemprop="dateCreated datePublished" datetime="2022-05-27T21:32:41+08:00">2022-05-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,12 +199,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">日记</span></a>
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
                 </span>
             </span>
 
           
-            <span id="/2022/05/21/2022.5.21%E6%97%A5%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="22年5.21随笔" title="阅读次数">
+            <span id="/2022/05/27/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%86%8D%E5%B0%8F%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="线程函数再小记" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -219,13 +219,13 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2022/05/21/2022.5.21%E6%97%A5%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/21/2022.5.21%E6%97%A5%E8%AE%B0/" itemprop="commentCount"></span>
+    <a title="valine" href="/2022/05/27/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%86%8D%E5%B0%8F%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/27/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%86%8D%E5%B0%8F%E8%AE%B0/" itemprop="commentCount"></span>
     </a>
   </span>
   
   
-            <div class="post-description">21日，今天经历了好多。值得记下来</div>
+            <div class="post-description">在学习操作系统的时候又遇到的几个函数</div>
 
         </div>
       </header>
@@ -236,16 +236,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="凌晨"><a href="#凌晨" class="headerlink" title="凌晨"></a>凌晨</h1><p>我的三位大佬，两位在学习，另一位一边打游戏一边和我扯犊子。肖大佬说她打王者荣耀原来的号打不过了，开了一个小号继续坑队友去了。哈哈哈哈，笑死我了。</p>
-<h1 id="早上"><a href="#早上" class="headerlink" title="早上"></a>早上</h1><p>md，今天八点就起来了，没有一觉睡到自然醒，跑去做了一个核酸。医护人员也挺忙的。</p>
-<h1 id="上午"><a href="#上午" class="headerlink" title="上午"></a>上午</h1><p>平平无奇的补觉中</p>
-<h1 id="中午"><a href="#中午" class="headerlink" title="中午"></a>中午</h1><p>按时按点学习了党课，并在党课之余去剪了一个头发，emmm四天的头发也终于洗了哈哈哈。然后去吃了个饭。</p>
-<h1 id="下午"><a href="#下午" class="headerlink" title="下午"></a>下午</h1><p>划水划水</p>
-<h1 id="晚上"><a href="#晚上" class="headerlink" title="晚上"></a>晚上</h1><p>八点左右跑完了三公里。</p>
-<p>然后去团委待到了十点多，唉今天又走了好几圈在办公室里面，抚摸着那熟悉的事物，看着那些笑容的面孔，我与他的时日不多了。也不多伤感了，珍惜与他现在的时光吧<strong>“一声志愿者，一生志愿者”</strong></p>
-<p>然后把我数学建模的图做了又做，看着那耦合度只有百分之三十左右的函数，我露出了笑容。。。。哈哈哈 弄这个好累</p>
-<p>今天晚上操场有好多卖花的还有拿着荧光棒摇来摇去的还有放歌的，人生百态，值得品味。</p>
-<p>最近有些感伤，又有些无力，做好自己吧。</p>
+        <h1 id="WaitForSingleObject函数"><a href="#WaitForSingleObject函数" class="headerlink" title="WaitForSingleObject函数"></a>WaitForSingleObject函数</h1><p>你可以通知一个内核对象，使之处于“已通知状态”，然后让其他等待在该内核对象上的线程继续执行。</p>
+<h2 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DWORD WINAPI WaitForSingleObject&#123;</span><br><span class="line">_In_ HANDLE hHandle,</span><br><span class="line">_In_ DWORD dwMilliseconds</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h3><ul>
+<li>hHandle</li>
+</ul>
+<p>指向一个对象的句柄。</p>
+<ul>
+<li>dwMilliseconds</li>
+</ul>
+<p>超时时间间隔，以ms为单位。若设定了一个非零值，则函数将一直等待到该对象生命周期终止或所设定的超时时间到达。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>该函数需要传递一个内核对象句柄，该句柄标识一个内核对象<br>① 如果该内核对象处于未通知状态，则该函数导致线程进入阻塞状态；<br>② 如果该内核对象处于已通知状态，则该函数立即返回WAIT_OBJECT_0。</p>
+<p>第二个参数指明了需要等待的时间（毫秒），可以传递INFINITE指明要无限期等待下去，如果第二个参数为0，那么函数就测试同步对象的状态并立即返回。如果等待超时，该函数返回WAIT_TIMEOUT</p>
+<h1 id="ReleaseSemaphore函数"><a href="#ReleaseSemaphore函数" class="headerlink" title="ReleaseSemaphore函数"></a>ReleaseSemaphore函数</h1><p>按指定数量增加指定信号量对象的计数。</p>
+<h2 id="函数原型-1"><a href="#函数原型-1" class="headerlink" title="函数原型"></a>函数原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BOOL WINAPI ReleaseSemaphore(</span><br><span class="line">  _In_      HANDLE hSemaphore,</span><br><span class="line">  _In_      LONG   lReleaseCount,</span><br><span class="line">  _Out_opt_ LPLONG lpPreviousCount,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数介绍-1"><a href="#参数介绍-1" class="headerlink" title="参数介绍"></a>参数介绍</h3><ul>
+<li>hSemaphore</li>
+</ul>
+<p>信号量对象的句柄。</p>
+<ul>
+<li>lReleaseCount</li>
+</ul>
+<p>要增加信号对象的当前计数的量。该值必须大于零。</p>
+<ul>
+<li>lpPreviousCount</li>
+</ul>
+<p>指向要接收信号量的上一个计数的变量的指针。如果不需要上一个计数, 则此参数可以为NULL 。</p>
+<h2 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h2><p>如果函数成功, 则返回值为非零。</p>
+<p>如果函数失败, 返回值为零。</p>
+<h1 id="CreateSemaphore函数"><a href="#CreateSemaphore函数" class="headerlink" title="CreateSemaphore函数"></a>CreateSemaphore函数</h1><p>创建或打开命名或未命名的信号量对象。</p>
+<h2 id="函数原型-2"><a href="#函数原型-2" class="headerlink" title="函数原型"></a>函数原型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI CreateSemaphore（</span><br><span class="line">  _In_opt_ LPSECURITY_ATTRIBUTES lpSemaphoreAttributes，</span><br><span class="line">  _In_ LONG lInitialCount，</span><br><span class="line">  _In_ LONG lMaximumCount，</span><br><span class="line">  _In_opt_ LPCTSTR lpName</span><br><span class="line">）;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数介绍-2"><a href="#参数介绍-2" class="headerlink" title="参数介绍"></a>参数介绍</h3><ul>
+<li>lpSemaphoreAttributes [in，optional]</li>
+</ul>
+<p>指向SECURITY_ATTRIBUTES结构的指针。如果此参数为NULL，则子进程无法继承句柄。</p>
+<p>结构的lpSecurityDescriptor成员为新信号量指定安全描述符。如果此参数为NULL，则信号量将获取默认安全描述符。信号量的默认安全描述符中的ACL来自创建者的主要或模拟令牌。</p>
+<ul>
+<li>lInitialCount [in]</li>
+</ul>
+<p>信号量对象的初始计数。该值必须大于或等于零且小于或等于lMaximumCount。信号量的状态在其计数大于零时发出信号，在信号</p>
+<p>为零时发出信号。只要wait函数释放等待信号量的线程，计数就会减1。通过调用ReleaseSemaphore函数将计数增加指定的量。</p>
+<ul>
+<li>lMaximumCount [in]</li>
+</ul>
+<p>信号量对象的最大计数。该值必须大于零。</p>
+<ul>
+<li>lpName [in，optional]</li>
+</ul>
+<p>信号量对象的名称。名称仅限于MAX_PATH个字符。名称比较区分大小写。</p>
+<h2 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h2><p>如果函数成功，则返回值是信号量对象的句柄。如果在函数调用之前存在命名的信号量对象，则该函数返回现有对象的句柄，GetLastError返回ERROR_ALREADY_EXISTS。</p>
+<p>如果函数失败，则返回值为NULL。</p>
 
     </div>
 
@@ -275,7 +318,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E4%B8%8D%E6%98%93%E7%9A%84%E6%97%A5%E5%B8%B8/" rel="tag"># 不易的日常</a>
+              <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
           </div>
 
         
@@ -284,13 +327,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/20/%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%99%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="建站（一）">
-      <i class="fa fa-chevron-left"></i> 建站（一）
+    <a href="/2022/05/25/%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/" rel="prev" title="线程函数小记">
+      <i class="fa fa-chevron-left"></i> 线程函数小记
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/22/2022.5.22%E6%97%A5%E8%AE%B0/" rel="next" title="22年5.22随笔">
-      22年5.22随笔 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -350,7 +390,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%8C%E6%99%A8"><span class="nav-number">1.</span> <span class="nav-text">凌晨</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A9%E4%B8%8A"><span class="nav-number">2.</span> <span class="nav-text">早上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E5%8D%88"><span class="nav-number">3.</span> <span class="nav-text">上午</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E5%8D%88"><span class="nav-number">4.</span> <span class="nav-text">中午</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E5%8D%88"><span class="nav-number">5.</span> <span class="nav-text">下午</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%99%9A%E4%B8%8A"><span class="nav-number">6.</span> <span class="nav-text">晚上</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WaitForSingleObject%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">WaitForSingleObject函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">参数介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.2.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ReleaseSemaphore%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">ReleaseSemaphore函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-1"><span class="nav-number">2.1.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">参数介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-1"><span class="nav-number">2.2.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CreateSemaphore%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">CreateSemaphore函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-2"><span class="nav-number">3.1.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D-2"><span class="nav-number">3.1.1.</span> <span class="nav-text">参数介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-2"><span class="nav-number">3.2.</span> <span class="nav-text">返回值</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
